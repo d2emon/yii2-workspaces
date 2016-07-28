@@ -1,8 +1,9 @@
 <?php
 
-namespace app\modules\job\models;
+namespace d2emon\workspace\models;
 
 use Yii;
+use app\modules\profile\models\Profile;
 
 /**
  * This is the model class for table "job".
@@ -60,5 +61,13 @@ class Job extends \yii\db\ActiveRecord
     public function getWorkspace()
     {
         return $this->hasOne(Workspace::className(), ['id' => 'workspace_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'profile_id']);
     }
 }

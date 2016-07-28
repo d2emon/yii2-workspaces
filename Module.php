@@ -1,16 +1,20 @@
 <?php
 
-namespace app\modules\job;
+namespace d2emon\workspace;
+
+use Yii;
 
 /**
  * job module definition class
  */
 class Module extends \yii\base\Module
 {
+    public $image_group_name = 'workspace';
+
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'app\modules\job\controllers';
+    public $controllerNamespace = 'd2emon\workspace\controllers';
 
     /**
      * @inheritdoc
@@ -20,5 +24,10 @@ class Module extends \yii\base\Module
         parent::init();
 
         // custom initialization code goes here
+    }
+
+    public function getImageGroup()
+    {
+	return Yii::$app->getModule('image')->getImageGroup($this->image_group_name);
     }
 }

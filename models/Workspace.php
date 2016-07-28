@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\job\models;
+namespace d2emon\workspace\models;
 
 use Yii;
 
@@ -63,9 +63,11 @@ class Workspace extends \yii\db\ActiveRecord
      *
      * @return string
      */
-    public function getAvatar()
+    public function getThumb($suffix='')
     {
-	$image = $this->image ? $this->image : '0';
-	return sprintf("/images/workspaces/%s.jpg", $image, $this->id);
+	$group = Yii::$app->getModule('workspace')->imageGroup;
+	if (!$this->image)
+	    return '/'.$group->getDefault_filename($suffix);
+	return '/'.$group->getFilename($this->image, $suffix);
     }
 }

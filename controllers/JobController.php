@@ -3,16 +3,16 @@
 namespace d2emon\workspace\controllers;
 
 use Yii;
-use d2emon\workspace\models\Workspace;
+use d2emon\workspace\models\Job;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for Workspace model.
+ * JobController implements the CRUD actions for Job model.
  */
-class DefaultController extends Controller
+class JobController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,13 +30,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * Lists all Workspace models.
+     * Lists all Job models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Workspace::find(),
+            'query' => Job::find(),
         ]);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Displays a single Workspace model.
+     * Displays a single Job model.
      * @param integer $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * Creates a new Workspace model.
+     * Creates a new Job model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Workspace();
+        $model = new Job();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing Workspace model.
+     * Updates an existing Job model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +94,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing Workspace model.
+     * Deletes an existing Job model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds the Workspace model based on its primary key value.
+     * Finds the Job model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Workspace the loaded model
+     * @return Job the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Workspace::findOne($id)) !== null) {
+        if (($model = Job::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

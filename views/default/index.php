@@ -1,12 +1,43 @@
-<div class="job-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+use d2emon\workspace\components\WorkspaceWidget;
+
+/* @var $this yii\web\View */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = Yii::t('job', 'Workspaces');
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="workspace-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
     <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
+        <?= Html::a(Yii::t('job', 'Create Workspace'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            'id',
+            'title',
+	    [
+	      'attribute' => 'description',
+	      'format' => 'raw',
+	      'value' => function($model){
+		   return WorkspaceWidget::widget(['workspace' => $model, 'truncate' => 128, 'show_title' => False]);
+	      },
+	    ],
+	    [
+	      'attribute' => 'jobs',
+	      'format' => 'raw',
+	      'value' => function($model){
+		   return count($model->jobs);
+	      },
+	    ],
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 </div>
