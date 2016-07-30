@@ -70,4 +70,22 @@ class Job extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'profile_id']);
     }
+
+    public function getDescription()
+    {
+    	return $this->responsibilities;
+    }
+
+    /**
+     * Forms avatar
+     *
+     * @return string
+     */
+    public function getThumb($suffix='')
+    {
+	$group = Yii::$app->getModule('workspace')->getImageGroup(1);
+	if (!$this->image)
+	    return '/'.$group->getDefault_filename($suffix);
+	return '/'.$group->getFilename($this->image, $suffix);
+    }
 }

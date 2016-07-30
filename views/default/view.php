@@ -46,10 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'dataProvider' => new ArrayDataProvider([
 		  'allModels' => $model->jobs,
 		]),
-		'itemView' => function ($model, $key, $index, $widget) {
-		  return Html::a($model->title, ['job/view', 'id' => $model->id]).' - '.
-		    Html::a($model->profile->fullname, ['/site/profile', 'id' => $model->profile_id]);
-		},
+		'itemView' => '_joblist',
 	      ]),
 	      /*
 	      'value' => GridView::widget([

@@ -9,7 +9,7 @@ use Yii;
  */
 class Module extends \yii\base\Module
 {
-    public $image_group_name = 'workspace';
+    public $image_group_names = ['workspace', 'job'];
 
     /**
      * @inheritdoc
@@ -26,8 +26,8 @@ class Module extends \yii\base\Module
         // custom initialization code goes here
     }
 
-    public function getImageGroup()
+    public function getImageGroup($group_id=0)
     {
-	return Yii::$app->getModule('image')->getImageGroup($this->image_group_name);
+	return Yii::$app->getModule('image')->getImageGroup($this->image_group_names[$group_id]);
     }
 }
