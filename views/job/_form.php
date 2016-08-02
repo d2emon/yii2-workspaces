@@ -1,11 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use d2emon\workspace\models\Workspace;
 
 /* @var $this yii\web\View */
 /* @var $model d2emon\workspace\models\Job */
 /* @var $form yii\widgets\ActiveForm */
+
+$workspaces = ArrayHelper::map(Workspace::find()->all(), 'id', 'title');
 ?>
 
 <div class="job-form">
@@ -18,7 +22,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'responsibilities')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'workspace_id')->textInput() ?>
+    <?= $form->field($model, 'workspace_id')->dropDownList($workspaces, [
+        'prompt' => Yii::t('job', 'Select workspace'),
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('job', 'Create') : Yii::t('job', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
