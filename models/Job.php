@@ -85,7 +85,7 @@ class Job extends \yii\db\ActiveRecord
     {
 	$group = Yii::$app->getModule('workspace')->getImageGroup(1);
 	if (!$this->image)
-	    return '/'.$group->getDefault_filename($suffix);
+	    return $group->getDefault_filename($suffix) ? $group->getDefault_filename($suffix) : '';
 	return '/'.$group->getFilename($this->image, $suffix);
     }
 }

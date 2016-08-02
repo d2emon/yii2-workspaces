@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use d2emon\workspace\components\WorkspaceWidget;
+use uxappetite\yii2image\components\ImagedDescWidget;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	      'attribute' => 'description',
 	      'format' => 'raw',
 	      'value' => function($model){
-		   return WorkspaceWidget::widget(['workspace' => $model, 'truncate' => 128, 'show_title' => False]);
+		   return ImagedDescWidget::widget(['model' => $model, 'truncate' => 128]);
 	      },
 	    ],
 	    [

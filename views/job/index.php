@@ -2,8 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use d2emon\workspace\components\WorkspaceWidget;
-use d2emon\workspace\components\JobWidget;
+use uxappetite\yii2image\components\ImagedDescWidget;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,7 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	      'attribute' => 'responsibilities',
 	      'format' => 'raw',
 	      'value' => function($model){
-		   return JobWidget::widget(['model' => $model, 'truncate' => 128, 'show_title' => False]);
+		   // return JobWidget::widget(['model' => $model, 'truncate' => 128, 'show_title' => False]);
+		   return ImagedDescWidget::widget(['model' => $model, 'truncate' => 128]);
 	      },
 	    ],
 	    [
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	      'label' => Yii::t('job', 'Workspace'),
 	      'format' => 'raw',
 	      'value' => function($model){
-		   return WorkspaceWidget::widget(['workspace' => $model->workspace, 'truncate' => 128, 'show_title' => False]);
+		   return ImagedDescWidget::widget(['model' => $model->workspace, 'truncate' => 128, 'show_title' => True]);
 	      },
 	    ],
 	    [

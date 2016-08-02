@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use d2emon\workspace\components\WorkspaceWidget;
+use uxappetite\yii2image\components\ImagedDescWidget;
 
 /* @var $this yii\web\View */
 /* @var $model d2emon\workspace\models\Job */
@@ -31,20 +31,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
 	    [
+	      'attribute' => 'responsibilities',
+	      'format' => 'raw',
+              'value' => ImagedDescWidget::widget(['model' => $model, 'show_title' => True]),
+	    ],
+	    [
 	      'attribute' => 'workspace',
 	      'format' => 'raw',
-              'value' => WorkspaceWidget::widget(['workspace' => $model->workspace, 'show_title' => True]),
+              'value' => Html::a(ImagedDescWidget::widget(['model' => $model->workspace, 'show_title' => True]), ['default/view', 'id' => $model->id]),
 	    ],
-            'title',
-            'image',
-            'responsibilities:ntext',
 	    [
 	      'attribute' => 'profile',
 	      'format' => 'raw',
               'value' => Html::a($model->profile->fullname, ['/site/profile', 'id' => $model->profile_id]),
 	    ],
-            'workspace_id',
-            'profile_id',
         ],
     ]) ?>
 

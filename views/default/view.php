@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 use yii\widgets\ListView;
 // use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
-use d2emon\workspace\components\WorkspaceWidget;
+use uxappetite\yii2image\components\ImagedDescWidget;
 
 /* @var $this yii\web\View */
 /* @var $model d2emon\workspace\models\Workspace */
@@ -33,11 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'title',
 	    [
 	      'attribute' => 'description',
 	      'format' => 'raw',
-              'value' => WorkspaceWidget::widget(['workspace' => $model, 'show_title' => False]),
+              'value' => ImagedDescWidget::widget(['model' => $model, 'show_title' => True]),
 	    ],
 	    [
 	      'attribute' => 'jobs',
