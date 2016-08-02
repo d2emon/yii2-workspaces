@@ -7,7 +7,10 @@ use d2emon\workspace\models\Workspace;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
+
+use yii\helpers\Json;
 
 /**
  * DefaultController implements the CRUD actions for Workspace model.
@@ -66,7 +69,11 @@ class DefaultController extends Controller
         $model = new Workspace();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+	    $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload() && $model->save()) {
+	        // file is uploaded successfully
+            	return $this->redirect(['view', 'id' => $model->id]);
+	    }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -104,6 +111,31 @@ class DefaultController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Uploads images into Workspace model.
+     * @return mixed
+     */
+    public function actionUpload()
+    {
+	$workspace_id = Yii::$app->request->post('workspace_id', 0);
+	$model = Workspace::findOne($workspace_id);
+	if(!$model){
+	    $model = new Workspace;
+	}
+
+	$model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+        if ($model->upload()) {
+	    if ($workspace_id) {
+		return Json::encode($model->save());
+	    }else{
+		Yii::$app->session->setFlash('image', $model->image);
+	        return Json::encode(True);
+	    }
+	    // file is uploaded successfully
+	}
+	return Json::encode(False);
     }
 
     /**

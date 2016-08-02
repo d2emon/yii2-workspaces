@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
@@ -16,16 +17,14 @@ use uxappetite\yii2image\components\ThumbWidget;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
-
-    <?php $extra = $model->isNewRecord ? [] : ['advice_id' => $model->id]; ?>
+    <?php $extra = $model->isNewRecord ? [] : ['workspace_id' => $model->id]; ?>
     <?= $form->field($model, 'imageFile')->widget(FileInput::classname(), [
 	'options' => [
 	    'multiple' => False,
 	    'accept' => 'image/*',
 	],
 	'pluginOptions' => [
-	    'uploadUrl' => Url::to(['/advice/default/upload']),
+	    'uploadUrl' => Url::to(['/workspace/default/upload']),
             'uploadExtraData' => $extra,
 	    // 'initialPreview' => [$model->avatar],
 	    // 'initialPreviewAsData' => True,

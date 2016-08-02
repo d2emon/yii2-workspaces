@@ -18,6 +18,8 @@ use app\modules\profile\models\Profile;
  */
 class Job extends \yii\db\ActiveRecord
 {
+    public $imageFile;
+
     /**
      * @inheritdoc
      */
@@ -74,6 +76,31 @@ class Job extends \yii\db\ActiveRecord
     public function getDescription()
     {
     	return $this->responsibilities;
+    }
+
+    public function upload()
+    {
+        if ((!$this->imageFile) && (Yii::$app->session->hasFlash('image'))){
+	    $this->image = Yii::$app->session->getFlash('image');
+	    return True;
+	}
+	Yii::$app->session->removeFlash('image');
+	if (!$this->imageFile) {
+	    return True;
+	}
+	if ($this->validate()) {
+	    $group = Yii::$app->getModule('workspace')->getImageGroup(1);
+	    $this->image = $group->replace($this->image, $this->imageFile);
+	    /*
+	    Image::thumbnail($imagePath.$filename, 64, 64)
+		->save($imagePath.$imagename.'_s.jpg');
+	     */
+	    
+	    $this->imageFile = null;
+            return True;
+        } else {
+            return false;
+        }
     }
 
     /**

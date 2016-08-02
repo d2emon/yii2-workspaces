@@ -16,6 +16,8 @@ use Yii;
  */
 class Workspace extends \yii\db\ActiveRecord
 {
+    public $imageFile;
+
     /**
      * @inheritdoc
      */
@@ -56,6 +58,31 @@ class Workspace extends \yii\db\ActiveRecord
     public function getJobs()
     {
         return $this->hasMany(Job::className(), ['workspace_id' => 'id']);
+    }
+
+    public function upload()
+    {
+        if ((!$this->imageFile) && (Yii::$app->session->hasFlash('image'))){
+	    $this->image = Yii::$app->session->getFlash('image');
+	    return True;
+	}
+	Yii::$app->session->removeFlash('image');
+	if (!$this->imageFile) {
+	    return True;
+	}
+	if ($this->validate()) {
+	    $group = Yii::$app->getModule('workspace')->getImageGroup(0);
+	    $this->image = $group->replace($this->image, $this->imageFile);
+	    /*
+	    Image::thumbnail($imagePath.$filename, 64, 64)
+		->save($imagePath.$imagename.'_s.jpg');
+	     */
+	    
+	    $this->imageFile = null;
+            return True;
+        } else {
+            return false;
+        }
     }
 
     /**
