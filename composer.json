@@ -25,9 +25,7 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-imagine": "~2.0.0",
         "kartik-v/yii2-widget-fileinput": "@dev",
-        "uxappetite/yii2-image": "*"
-    },
-    "require-dev": {
+        "uxappetite/yii2-image": "*",
         "d2emon/trcards": "*"
     },
     "autoload": {
