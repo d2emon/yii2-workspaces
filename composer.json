@@ -14,11 +14,11 @@
     "repositories": [
         {
             "type": "git",
-	          "url": "ssh://git@bitbucket.org/uxappetite/yii2-image.git"
+	          "url": "ssh://git@bitbucket.org:uxappetite/yii2-image.git"
         },
         {
             "type": "git",
-	          "url": "ssh://git@github.com/d2emon/trcards.git"
+	          "url": "ssh://git@github.com:d2emon/trcards.git"
         }
     ],
     "require": {
